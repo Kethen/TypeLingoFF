@@ -1,0 +1,31 @@
+name: Build package
+
+on: [ push, pull_request, workflow_dispatch ]
+
+jobs:
+  build_pkg:
+    runs-on: ubuntu-22.04
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Install packages
+      run: |
+        sudo apt install -y podman
+
+    - name: Set env vars
+      run: |
+        echo "sha_name=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_ENV
+
+    - name: Build
+      run: |
+        bash build_podman.sh
+
+    - name: Push package artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: typelingoff_${{ env.sha_name }}
+        path: |
+           web-ext-artifacts/typelingo_firefox-1.0.zip
+        if-no-files-found: error
