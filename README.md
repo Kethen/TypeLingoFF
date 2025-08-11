@@ -8,4 +8,4 @@ Icon obtained from the original project.
 
 - There will likely be no Chrom* support due to the lack of manifest v2 extension support, and manifest v3's lack of features. Use Firefox/Epiphany.
 - Learning language -> learner language exercice will wrongly display "Write this in <learning language>", due to how the translation exercice player is put together on Duolingo's webapp.
-- If this was working for you previous but not anymore, Duolingo likely changed their exercise data format again.
+- If this was working for you previously but not anymore, Duolingo likely changed their exercise data format again.
