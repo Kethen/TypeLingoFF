@@ -1,0 +1,17 @@
+{
+	"manifest_version": 2,
+	"name": "typelingoff",
+	"version": "1.0",
+
+	"description": "Re-enabling keyboard responses in duolingo",
+
+	"icons": {
+		"128": "icons/128.png"
+	},
+
+	"background": {
+		"scripts": ["typelingoff.js"]
+	},
+
+	"permissions": ["*://*.duolingo.com/*/sessions", "webRequest", "webRequestBlocking"]
+}
