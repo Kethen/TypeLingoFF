@@ -1,6 +1,6 @@
 {
 	"manifest_version": 2,
-	"name": "typelingoff",
+	"name": "TypeLingo Firefox",
 	"version": "1.0",
 
 	"description": "Re-enabling keyboard responses in duolingo",
