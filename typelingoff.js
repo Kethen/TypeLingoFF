@@ -40,7 +40,10 @@ function request_listener(details) {
 		let challenge_generators = {};
 
 		for (c of challenges){
-			challenge_generators[c["challengeGeneratorIdentifier"]["specificType"]] = c["challengeGeneratorIdentifier"]["generatorId"];
+			challenge_generators[c["challengeGeneratorIdentifier"]["specificType"]] = {
+				id:c["challengeGeneratorIdentifier"]["generatorId"],
+				type:c["type"]
+			}
 		}
 
 		console.log(challenge_generators);
@@ -50,17 +53,36 @@ function request_listener(details) {
 				canRequireUserToType:true,
 				showInputModeToggle:true
 			};
-			if (c["challengeGeneratorIdentifier"]["specificType"] == "tap"){
+
+			let changed = false;
+
+			// we have no speaking exercise anyway in ff
+			if (c["challengeGeneratorIdentifier"]["specificType"] == "speak"){
+				c["challengeGeneratorIdentifier"]["specificType"] = "tap";
+				c["type"] = "disabled";
+				console.log("disabled speaking exercise (" + c["prompt"] + ")")
+				changed = true;
+			}
+
+			if (c["challengeGeneratorIdentifier"]["specificType"] == "tap"
+			){
 				let sourceLanguage = c["sourceLanguage"];
 				let targetLanguage = c["targetLanguage"];
 				c["sourceLanguage"] = targetLanguage;
 				c["targetLanguage"] = sourceLanguage;
-				let reverse_tap_generator = challenge_generators["reverse_tap"];
-				if (reverse_tap_generator != undefined){
-					c["challengeGeneratorIdentifier"] = {
-						specificType:"reverse_tap",
-						generatorId:reverse_tap_generator,
-					};
+				if (c["sourceLanguage"] == undefined || c["targetLanguage"] == undefined){
+					c["sourceLanguage"] = json["fromLanguage"];
+					c["targetLanguage"] = json["learningLanguage"];
+				}
+				console.log("reversed exercise (" + c["prompt"] + ")")
+				changed = true;
+			}
+
+			if (!changed){
+				if (c["prompt"] != undefined){
+					console.log("left (" + c["prompt"] + ") untouched");
+				}else{
+					console.log("left exercise type " + c["type"] + " untouched");
 				}
 			}
 		}
