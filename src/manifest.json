@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "TypeLingo FF",
-	"version": "1.0",
+	"version": "1.0.1",
 	"developer": {
 		"name": "Katharine Chui",
 		"url": "https://github.com/Kethen/TypeLingoFF/"
