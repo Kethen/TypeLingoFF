@@ -1,9 +1,12 @@
 {
 	"manifest_version": 2,
-	"name": "TypeLingo Firefox",
+	"name": "TypeLingo FF",
 	"version": "1.0",
-
-	"description": "Re-enabling keyboard responses in duolingo",
+	"developer": {
+		"name": "Katharine Chui",
+		"url": "https://github.com/Kethen/TypeLingoFF/"
+	},
+	"description": "Re-enabling keyboard responses in Duolingo",
 
 	"icons": {
 		"128": "icons/128.png"

@@ -27,5 +27,5 @@ jobs:
       with:
         name: typelingoff_${{ env.sha_name }}
         path: |
-           web-ext-artifacts/typelingo_firefox-1.0.zip
+           web-ext-artifacts/typelingo_ff-1.0.zip
         if-no-files-found: error
