@@ -18,5 +18,5 @@ podman run --rm -it \
 	--entrypoint /bin/bash \
 	$IMAGE_TAG \
 	-c '
-	web-ext build
+	web-ext build -s src --overwrite-dest
 '
