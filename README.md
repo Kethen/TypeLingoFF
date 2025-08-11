@@ -1,5 +1,11 @@
 ### Typelingo for firefox
 
-Inspired by the orignal https://github.com/Nowammm/TypeLingo project, this is a firefox extension for re-enabling typing input for typing in lerner's language.
+Inspired by the orignal https://github.com/Nowammm/TypeLingo project, this is a firefox extension for re-enabling typing input for typing in lerner's language, by modifying exercise data.
 
 Icon obtained from the original project.
+
+### Known issues:
+
+- There will likely be no Chrom* support due to the lack of manifest v2 extension support, and manifest v3's lack of features. Use Firefox/Epiphany.
+- Learning language -> learner language exercice will wrongly display "Write this in <learning language>", due to how the translation exercice player is put together on Duolingo's webapp.
+- If this was working for you previous but not anymore, Duolingo likely changed their exercise data format again.

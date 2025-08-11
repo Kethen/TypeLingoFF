@@ -1,10 +1,5 @@
 console.log("typelingoff loaded")
 
-function process_session(details){
-	console.log("wdf");
-	console.log(details);
-}
-
 function request_listener(details) {
 	console.log(details);
 	let filter = browser.webRequest.filterResponseData(details.requestId);
@@ -29,6 +24,7 @@ function request_listener(details) {
 		let text = decoder.decode(orig_array);
 		let json = JSON.parse(text);
 		let challenges = json["challenges"];
+		let replacement_challenges = json["adaptiveInterleavedChallenges"]["challenges"]
 
 		if (challenges == undefined){
 			console.log("challenges not found");
@@ -37,9 +33,16 @@ function request_listener(details) {
 			return;
 		}
 
+		let all_challenges = challenges;
+		if (replacement_challenges == undefined){
+			console.log("replacement challenges not found");
+		}else{
+			all_challenges = challenges.concat(replacement_challenges);
+		}
+
 		let challenge_generators = {};
 
-		for (c of challenges){
+		for (c of all_challenges){
 			challenge_generators[c["challengeGeneratorIdentifier"]["specificType"]] = {
 				id:c["challengeGeneratorIdentifier"]["generatorId"],
 				type:c["type"]
@@ -48,21 +51,13 @@ function request_listener(details) {
 
 		console.log(challenge_generators);
 
-		for (c of challenges){
+		for (c of all_challenges){
 			c["challengeDisplaySettings"] = {
 				canRequireUserToType:true,
 				showInputModeToggle:true
 			};
 
 			let changed = false;
-
-			// we have no speaking exercise anyway in ff
-			if (c["challengeGeneratorIdentifier"]["specificType"] == "speak"){
-				c["challengeGeneratorIdentifier"]["specificType"] = "tap";
-				c["type"] = "disabled";
-				console.log("disabled speaking exercise (" + c["prompt"] + ")")
-				changed = true;
-			}
 
 			if (c["challengeGeneratorIdentifier"]["specificType"] == "tap"
 			){
@@ -79,11 +74,7 @@ function request_listener(details) {
 			}
 
 			if (!changed){
-				if (c["prompt"] != undefined){
-					console.log("left (" + c["prompt"] + ") untouched");
-				}else{
-					console.log("left exercise type " + c["type"] + " untouched");
-				}
+				console.log("left " + c["type"] + " exercise (" + c["prompt"] + ") untouched");
 			}
 		}
 
