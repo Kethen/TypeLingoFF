@@ -28,6 +28,8 @@ function request_listener(details) {
 		let adaptive_challenges = json["adaptiveChallenges"];
 		let mistake_replacement_challenges = json["mistakesReplacementChallenges"];
 
+		console.log("processing session type " + json["type"]);
+
 		if (challenges == undefined){
 			console.log("challenges not found");
 			filter.write(orig_array);
