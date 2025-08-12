@@ -4,7 +4,7 @@ IMAGE_TAG="typelingoff"
 
 if [ "$REBUILD_IMAGE" == "true" ]
 then
-	podman image remove -f $IMAGE_TAG
+	podman image rm -f $IMAGE_TAG
 fi
 
 if ! podman image exists $IMAGE_TAG
@@ -13,10 +13,17 @@ then
 fi
 
 podman run --rm -it \
+	--net host \
 	-v ./:/workdir \
 	-w /workdir \
 	--entrypoint /bin/bash \
+	-e DEVSHELL=$DEVSHELL \
 	$IMAGE_TAG \
 	-c '
-	web-ext build -s src --overwrite-dest
+	if [ "$DEVSHELL" == "true" ]
+	then
+		bash -l
+	else
+		web-ext build -s src --overwrite-dest
+	fi
 '

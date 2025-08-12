@@ -24,7 +24,9 @@ function request_listener(details) {
 		let text = decoder.decode(orig_array);
 		let json = JSON.parse(text);
 		let challenges = json["challenges"];
-		let replacement_challenges = json["adaptiveInterleavedChallenges"]["challenges"]
+		let replacement_challenges = json["adaptiveInterleavedChallenges"]["challenges"];
+		let adaptive_challenges = json["adaptiveChallenges"];
+		let mistake_replacement_challenges = json["mistakesReplacementChallenges"];
 
 		if (challenges == undefined){
 			console.log("challenges not found");
@@ -33,11 +35,26 @@ function request_listener(details) {
 			return;
 		}
 
+		console.log("processing " + challenges.length + " normal challenges");
+
 		let all_challenges = challenges;
 		if (replacement_challenges == undefined){
 			console.log("replacement challenges not found");
 		}else{
-			all_challenges = challenges.concat(replacement_challenges);
+			console.log("processing " + replacement_challenges.length + " replacement challenges as well");
+			all_challenges = all_challenges.concat(replacement_challenges);
+		}
+		if (adaptive_challenges == undefined){
+			console.log("adaptive challenges not found");
+		}else{
+			console.log("processing " + adaptive_challenges.length + " adaptive challenges as well");
+			all_challenges = all_challenges.concat(adaptive_challenges);
+		}
+		if (mistake_replacement_challenges == undefined){
+			console.log("mistake replacement challenges not found");
+		}else{
+			console.log("processing " + mistake_replacement_challenges.length + " mistake replacement challenges as well");
+			all_challenges = all_challenges.concat(mistake_replacement_challenges);
 		}
 
 		let challenge_generators = {};
