@@ -24,6 +24,8 @@ podman run --rm -it \
 	then
 		bash -l
 	else
+		set -xe
+		web-ext lint -s src
 		web-ext build -s src --overwrite-dest
 	fi
 '
