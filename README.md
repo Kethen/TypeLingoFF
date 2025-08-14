@@ -4,6 +4,8 @@ Inspired by the orignal https://github.com/Nowammm/TypeLingo project, this is a 
 
 Icon obtained from the original project.
 
+<img src="./demo.png" />
+
 ### Known issues:
 
 - There will likely be no Chrom* support due to the lack of manifest v2 extension support, and manifest v3's lack of features. Use Firefox/Epiphany.
